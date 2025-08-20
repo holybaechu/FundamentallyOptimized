@@ -134,17 +134,18 @@ jobs:
           modrinth-id: ${{ vars.MODRINTH_PROJECT_ID }}
           modrinth-featured: true
           modrinth-unfeature-mode: subset
+          modrinth-files: "artifacts/*-modrinth.mrpack"
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-tag: ${{ needs.validate-tag.outputs.tag }}
           github-generate-changelog: false
+          github-files: |
+            artifacts/*-modrinth.mrpack
+            artifacts/*-curseforge.zip
 
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
-
-          files: |
-            artifacts/*.mrpack
-            artifacts/*.zip
+          curseforge-files: "artifacts/*-curseforge.zip"
 
           version: ${{ needs.validate-tag.outputs.tag }}
           name: ${{ steps.release-info.outputs.name }}
