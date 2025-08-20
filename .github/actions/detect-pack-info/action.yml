@@ -1,0 +1,55 @@
+name: 'Detect Pack Info'
+description: 'Detects pack name and version from pack.toml file'
+
+inputs:
+  working-directory:
+    description: 'Directory containing the pack.toml file'
+    required: true
+
+outputs:
+  name:
+    description: 'The name of the pack from pack.toml'
+    value: ${{ steps.detect.outputs.name }}
+  tag:
+    description: 'The full version tag from pack.toml'
+    value: ${{ steps.detect.outputs.tag }}
+  version:
+    description: 'The universal pack version (without MC version and modloader)'
+    value: ${{ steps.detect.outputs.version }}
+  mc-version:
+    description: 'The minecraft version from pack version'
+    value: ${{ steps.detect.outputs.mc-version }}
+  modloader:
+    description: 'The modloader used by the pack'
+    value: ${{ steps.detect.outputs.modloader }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Detect pack info from pack.toml
+      id: detect
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        NAME=$(grep '^name = ' pack.toml | sed 's/name = "\(.*\)"/\1/')
+        TAG=$(grep '^version = ' pack.toml | sed 's/version = "\(.*\)"/\1/')
+        
+        # Parse version format: universal_version+mc_version.modloader
+        if [[ $TAG =~ ^([0-9]+\.[0-9]+\.[0-9]+)\+([0-9]+\.[0-9]+\.[0-9]+)\.([a-z]+)$ ]]; then
+          VERSION="${BASH_REMATCH[1]}"
+          MC_VERSION="${BASH_REMATCH[2]}"
+          MODLOADER="${BASH_REMATCH[3]}"
+        else
+          echo "❌ Invalid version format in pack.toml: $TAG"
+          echo "Expected format: x.y.z+a.b.c.modloader (e.g., 1.0.0+1.21.8.fabric)"
+          exit 1
+        fi
+        
+        echo "name=${NAME}" >> "$GITHUB_OUTPUT"
+        echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+        echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+        echo "mc-version=${MC_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "modloader=${MODLOADER}" >> "$GITHUB_OUTPUT"
+
+        echo "Detected pack: ${NAME} ${TAG}"
+        echo "Version: ${VERSION}, MC: ${MC_VERSION}, Modloader: ${MODLOADER}"

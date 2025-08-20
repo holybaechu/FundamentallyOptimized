@@ -1,0 +1,13 @@
+name = "Redirectionor [Retro]"
+filename = "redirectionor-1.9.for.1.12.2-1.8.8.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "2ef3d13110114f8514ea427ed7fc1bb9e72ca8ad"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 6827746
+project-id = 907559

@@ -1,0 +1,41 @@
+hash-format = "sha256"
+
+[[files]]
+file = "OneConfig/Preferences.json"
+hash = "a19f2d8e05def426343b8b3da98ebf8f0f134ef90cc22e639d1b8bc27ba57e73"
+
+[[files]]
+file = "OneConfig/profiles/Default Profile/patcher.json"
+hash = "f13b7e66d01749d0fbd678f29d1f2ef83e93c6531fb9130df3a0fe05ee4ef3ec"
+
+[[files]]
+file = "config/entityculling.json"
+hash = "1ae3b706d2e02cc1a5bfaf94e74c0a582538a7d45d65eccd676a71f889d5a0cf"
+
+[[files]]
+file = "mods/entityculling.pw.toml"
+hash = "412d57ec626f86c5a5300152c42c2acd13b0df70b9bfac0b97e5f2da3209c475"
+metafile = true
+
+[[files]]
+file = "mods/foamfix.pw.toml"
+hash = "606b10c3048fecb56bfe0747ed8efa25d2600fb37e45d25a0e65df0ef27d402f"
+metafile = true
+
+[[files]]
+file = "mods/patcher.pw.toml"
+hash = "a8e3b721ac4d51370ea21cc0246831148e46ea443af27c84643f40cdebb89dc2"
+metafile = true
+
+[[files]]
+file = "mods/redirectionor-retro.pw.toml"
+hash = "c2909becd5c78fb674b54e54f867782d55d386206c0ce5f2dd6b5b0d6236a08c"
+metafile = true
+
+[[files]]
+file = "options.txt"
+hash = "5822d412d7b12dcf0d614598dfe23e64e293ffb4cb10a9691df801e0f357d50f"
+
+[[files]]
+file = "optionsof.txt"
+hash = "925cdb47e241637faa459395c83307c54d2f12ac9b2944afaeee0036b4ca85dc"

@@ -1,0 +1,12 @@
+enableVsync:false
+fullscreen:true
+fov:0.5
+renderDistance:12
+simulationDistance:5
+maxFps:260
+graphicsMode:0
+guiScale:3
+tutorialStep:none
+skipMultiplayerWarning:true
+joinedFirstServer:true
+syncChunkWrites:false

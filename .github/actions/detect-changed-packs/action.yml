@@ -1,0 +1,89 @@
+name: 'Detect Changed Pack Versions'
+description: 'Detects which pack directories have changed and creates a matrix for CI'
+
+inputs:
+  force-version:
+    description: 'Force include a specific version directory (bypasses change detection)'
+    required: false
+
+outputs:
+  matrix:
+    description: 'JSON array of changed pack directories that contain pack.toml files'
+    value: ${{ steps.create-matrix.outputs.matrix }}
+  has-changes:
+    description: 'Boolean indicating if any pack directories changed'
+    value: ${{ steps.create-matrix.outputs.has-changes }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Get list of changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v46
+      with:
+        dir_names: true
+
+    - name: Create matrix of changed pack versions
+      id: create-matrix
+      shell: bash
+      run: |
+        DIRS="${{ steps.changed-files.outputs.all_changed_files }}"
+        FORCE_VERSION="${{ inputs.force-version }}"
+        
+        if [ ! -z "$FORCE_VERSION" ]; then
+          echo "Force version specified: $FORCE_VERSION"
+          if [ -f "$FORCE_VERSION/pack.toml" ]; then
+            JSON_MATRIX="[\"$FORCE_VERSION\"]"
+            HAS_CHANGES="true"
+            echo "matrix=${JSON_MATRIX}" >> "$GITHUB_OUTPUT"
+            echo "has-changes=${HAS_CHANGES}" >> "$GITHUB_OUTPUT"
+            echo "Forced pack directory: ${JSON_MATRIX}"
+            exit 0
+          else
+            echo "Error: Force version directory $FORCE_VERSION does not contain pack.toml"
+            exit 1
+          fi
+        fi
+        
+        if [ -z "$DIRS" ]; then
+          echo "No changed directories detected"
+          JSON_MATRIX="[]"
+          HAS_CHANGES="false"
+        else
+          VALID_DIRS=""
+          for dir in $DIRS; do
+            if [ -f "$dir/pack.toml" ]; then
+              if [ -z "$VALID_DIRS" ]; then
+                VALID_DIRS="$dir"
+              else
+                VALID_DIRS="$VALID_DIRS $dir"
+              fi
+              echo "Found valid pack directory: $dir"
+            else
+              echo "Skipping directory without pack.toml: $dir"
+            fi
+          done
+          
+          if [ -z "$VALID_DIRS" ]; then
+            echo "No valid pack directories found in changed files"
+            JSON_MATRIX="[]"
+            HAS_CHANGES="false"
+          else
+            JSON_MATRIX="["
+            FIRST=true
+            for dir in $VALID_DIRS; do
+              if [ "$FIRST" = true ]; then
+                JSON_MATRIX="${JSON_MATRIX}\"${dir}\""
+                FIRST=false
+              else
+                JSON_MATRIX="${JSON_MATRIX},\"${dir}\""
+              fi
+            done
+            JSON_MATRIX="${JSON_MATRIX}]"
+            HAS_CHANGES="true"
+          fi
+        fi
+        
+        echo "matrix=${JSON_MATRIX}" >> "$GITHUB_OUTPUT"
+        echo "has-changes=${HAS_CHANGES}" >> "$GITHUB_OUTPUT"
+        echo "Valid pack directories for matrix: ${JSON_MATRIX}"

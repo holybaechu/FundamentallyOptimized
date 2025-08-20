@@ -1,0 +1,8 @@
+fov:0.5
+renderDistance:12
+guiScale:3
+fullscreen:true
+enableVsync:false
+maxFps:260
+useVbo:true
+fancyGraphics:false

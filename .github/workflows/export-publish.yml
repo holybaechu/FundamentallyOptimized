@@ -1,0 +1,160 @@
+name: Export and Publish Modpack
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      force_version:
+        description: 'Force build specific version (e.g., "1.8.9")'
+        required: false
+        type: string
+
+jobs:
+  validate-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      valid: ${{ steps.validate-tag.outputs.valid }}
+      tag: ${{ steps.validate-tag.outputs.tag }}
+      mc-version: ${{ steps.validate-tag.outputs.mc-version }}
+      version: ${{ steps.validate-tag.outputs.version }}
+      modloader: ${{ steps.validate-tag.outputs.modloader }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate tag format
+        id: validate-tag
+        uses: ./.github/actions/validate-tag
+
+  detect-changes:
+    runs-on: ubuntu-latest
+    needs: validate-tag
+    if: ${{ github.ref_type != 'tag' || needs.validate-tag.outputs.valid == 'true' }}
+    outputs:
+      matrix: ${{ steps.detect-changed-packs.outputs.matrix }}
+      has-changes: ${{ steps.detect-changed-packs.outputs.has-changes }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect changed pack versions
+        id: detect-changed-packs
+        uses: ./.github/actions/detect-changed-packs
+        with:
+          force-version: ${{ github.event.inputs.force_version || (github.ref_type == 'tag' && format('src/{0}/{1}', needs.validate-tag.outputs.modloader, needs.validate-tag.outputs.mc-version)) || '' }}
+
+  export:
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.has-changes == 'true' }}
+
+    strategy:
+      matrix:
+        version: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+          cache: false
+
+      - name: Install Packwiz
+        run: |
+          go install github.com/packwiz/packwiz@latest
+
+      - name: Detect pack info
+        id: pack-info
+        uses: ./.github/actions/detect-pack-info
+        with:
+          working-directory: ${{ matrix.version }}
+
+      - name: Prepare export info
+        id: export-info
+        run: |
+          echo "FILE_NAME=${{ steps.pack-info.outputs.name }}-${{ steps.pack-info.outputs.version }}+${{ steps.pack-info.outputs.mc-version }}.${{ steps.pack-info.outputs.modloader }}" >> $GITHUB_ENV
+
+      - name: Export for Modrinth
+        working-directory: ${{ matrix.version }}
+        run: |
+          packwiz modrinth export -y -o "$FILE_NAME-modrinth.mrpack"
+
+      - name: Export for curseforge
+        working-directory: ${{ matrix.version }}
+        run: |
+          packwiz curseforge export -y -o "$FILE_NAME-curseforge.zip"
+
+      - name: Upload Modrinth pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FILE_NAME }}-modrinth
+          path: ${{ matrix.version }}/${{ env.FILE_NAME }}-modrinth.mrpack
+
+      - name: Upload CurseForge pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FILE_NAME }}-curseforge
+          path: ${{ matrix.version }}/${{ env.FILE_NAME }}-curseforge.zip
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [validate-tag, export]
+    if: ${{ github.ref_type == 'tag' && needs.validate-tag.outputs.valid == 'true' }}
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v5
+        with:
+          path: ./artifacts
+          merge-multiple: true
+
+      - name: Prepare release info
+        id: release-info
+        run: |
+          MODLOADER="${{ needs.validate-tag.outputs.modloader }}"
+          echo "name=FMO ${{ needs.validate-tag.outputs.version }} for ${MODLOADER^} ${{ needs.validate-tag.outputs.mc-version }}" >> $GITHUB_OUTPUT
+
+      - name: Publish
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-id: ${{ vars.MODRINTH_PROJECT_ID }}
+          modrinth-featured: true
+          modrinth-unfeature-mode: subset
+
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-tag: ${{ needs.validate-tag.outputs.tag }}
+          github-generate-changelog: false
+
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
+
+          files: |
+            artifacts/*.mrpack
+            artifacts/*.zip
+
+          version: ${{ needs.validate-tag.outputs.tag }}
+          name: ${{ steps.release-info.outputs.name }}
+          changelog-file: src/${{ needs.validate-tag.outputs.modloader }}/${{ needs.validate-tag.outputs.mc-version }}/CHANGELOG.md
+
+          loaders: |
+            ${{ needs.validate-tag.outputs.modloader }}
+          game-versions: |
+            ${{ needs.validate-tag.outputs.mc-version }}
+
+          retry-attempts: 2
+          retry-delay: 10000
+          fail-mode: fail

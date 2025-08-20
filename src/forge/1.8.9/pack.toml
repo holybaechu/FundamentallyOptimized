@@ -1,0 +1,13 @@
+name = "Fundamentally Optimized"
+author = "holybaechu"
+version = "1.0.0+1.8.9.forge"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "c9bad0c87aa99cc8ee770b73770fe7b93118657cfe4feb136c14704a28e04705"
+
+[versions]
+forge = "11.15.1.2318"
+minecraft = "1.8.9"

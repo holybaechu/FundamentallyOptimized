@@ -1,0 +1,10 @@
+{
+  "vanillaGlassPanes": true,
+  "fullbright": false,
+  "windowedFullscreen": true,
+  "instantFullscreen": true,
+  "compactChat": false,
+  "startupNotification": false,
+  "imagePreview": false,
+  "entityCulling": false
+}
