@@ -1,7 +1,7 @@
 # 🚀 Fundamentally Optimized | Forge 1.8.9
 
 ## 📈 Benchmarks
-[CapFrameX files](https://github.com/holybaechu/FundamentallyOptimized/blob/main/src/forge/1.8.9/benchmarks)
+[CapFrameX files](./benchmarks)
 
 | Metric | Vanilla | FMO 1.0.0 | FMO 1.0.0 + OptiFine |
 |---|---------|-----------|-----------------------|

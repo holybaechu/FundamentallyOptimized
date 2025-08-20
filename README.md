@@ -12,16 +12,11 @@
 - **🔧 Pre-configured** - With optimal settings
 - **🌐 Multiplayer compatible** - All client-side optimizations safe for servers
 
-## 📊 Performance Gains
-
-*Benchmarks coming soon!*
-
-## 🎮 Supported Versions
-
-| Minecraft Version | Modloader |
-|-------------------|-----------|
-| 1.21.8 | Fabric 0.17.2 |
-| 1.8.9 | Forge 11.15.1.2318  |
+## 📈 Benchmarks
+| Minecraft Version | Modloader | Benchmark |
+|-------------------|-----------|-----------|
+| 1.21.8 | Fabric 0.17.2 | Coming Soon! |
+| 1.8.9 | Forge 11.15.1.2318 | [Link](https://github.com/holybaechu/FundamentallyOptimized/blob/main/src/forge/1.8.9/README.md) |
 
 ## ❓ FAQ
 
