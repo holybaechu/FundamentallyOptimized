@@ -1,0 +1,9 @@
+{
+    "name": "fmo",
+    "scripts": {
+        "serve": "bun run scripts/serve.ts"
+    },
+    "devDependencies": {
+        "@types/bun": "^1.2.22"
+    }
+}

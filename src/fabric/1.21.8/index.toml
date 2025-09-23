@@ -2,15 +2,15 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/badoptimizations.txt"
-hash = "d6796bc581a6ab9f6b97fbcf3143ed1f9d293faf0417c0427004aa307517c337"
+hash = "947a2458d8a2146757784649507573bc5d6d80e783b51717903f2ec424118dad"
 
 [[files]]
 file = "config/entityculling.json"
-hash = "1ae3b706d2e02cc1a5bfaf94e74c0a582538a7d45d65eccd676a71f889d5a0cf"
+hash = "1f3c3f008db8089022383a1b568fa4c0d103446a4518bcfa2a046a48ed0f0f32"
 
 [[files]]
 file = "config/fabric_loader_dependencies.json"
-hash = "fd72d5194075bcea3a728e79fe211dbd3643c6182106c7da406449446a559ac4"
+hash = "24890729e982ebed17edbc545bc0b793fb46cb597aa7f738c3cea03cc14bb6e4"
 
 [[files]]
 file = "config/ferritecore.mixin.properties"
@@ -18,7 +18,7 @@ hash = "1fbbea658d8af2a751857e70cf2d5930a24490cc4c24f8db9b49630a818b895c"
 
 [[files]]
 file = "config/immediatelyfast.json"
-hash = "14e168137cf80eb4115ea75a93fd02bdee573ee0c2aafca3ee44d8b5219917ea"
+hash = "13898e60f1ce930f75843d547ef9c65502a1d6784286c66677e1f00221ab4193"
 
 [[files]]
 file = "config/lithium.properties"
@@ -26,15 +26,15 @@ hash = "e5b0cbdba61b5bb019e9bf19333ace14c2da739baa936d3506b5edab3186ecf4"
 
 [[files]]
 file = "config/modernfix-mixins.properties"
-hash = "9acd033e601b8476fe02e1d856e347d14ea55b86634024ea23e065c2b9ef3938"
+hash = "e2c407e1191dc6d74551ce0520ea61febb548317b8dbe03fa573a3dcf942be75"
 
 [[files]]
 file = "config/moreculling.toml"
-hash = "0c6806786e23741af5bbeb0cd4a6825daf6698146b407b857f3e9c58973fbf04"
+hash = "8e9f86d4bdf7c637bb69d94d27dd46212ab7ef5d87c5aa781db26ae875496d53"
 
 [[files]]
 file = "config/sodium-options.json"
-hash = "0ba9d6d23b8341ba26d642d8a79f4a825e058f4d33b0098e9ba1e34fae18da55"
+hash = "b04dcfb5d9d1e61fef0f38b8221cee105a91905f8d387059c8b48a23fe5d2b97"
 
 [[files]]
 file = "mods/badoptimizations.pw.toml"
@@ -63,7 +63,7 @@ metafile = true
 
 [[files]]
 file = "mods/ferrite-core.pw.toml"
-hash = "49825c230f3345142dc133645f6ba0bfc17c8986feb0422914f9c471f60b9173"
+hash = "e2e8e2d38444d1502f16c7ce16bf823ed291ec6459a399c64906b6bc409f00ff"
 metafile = true
 
 [[files]]
@@ -107,4 +107,4 @@ metafile = true
 
 [[files]]
 file = "options.txt"
-hash = "4c3e1512036b275153e904fd4f265e66b318e92fba2a22c9d545ae518cd5d187"
+hash = "279e979157298f7d418b2f3e36a3c5289b7b59a1975709334203d0079d9ad5a0"
