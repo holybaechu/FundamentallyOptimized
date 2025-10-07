@@ -1,0 +1,16 @@
+name = "Fundamentally Optimized"
+author = "holybaechu"
+version = "1.0.0+1.21.9.fabric"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "96891df8cae2cc967bc5826fc56392958569f48feac0af17ebd077ed28b9f2e3"
+
+[versions]
+fabric = "0.17.2"
+minecraft = "1.21.9"
+
+[options]
+acceptable-game-versions = ["1.21.8", "1.21.6"]

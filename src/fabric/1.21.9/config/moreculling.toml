@@ -1,0 +1,3 @@
+leavesCullingMode = "DEPTH"
+includeMangroveRoots = true
+endGatewayCulling = true
