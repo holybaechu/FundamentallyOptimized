@@ -38,7 +38,7 @@ hash = "b04dcfb5d9d1e61fef0f38b8221cee105a91905f8d387059c8b48a23fe5d2b97"
 
 [[files]]
 file = "mods/badoptimizations.pw.toml"
-hash = "7dc0210e279f98316783c104f85384fa01dde889fd11e6c3a952f59e68299a2f"
+hash = "6b1c9202315fede4c1aaf801595a0af052726cb2046b29b78ce578192db26221"
 metafile = true
 
 [[files]]
@@ -58,7 +58,7 @@ metafile = true
 
 [[files]]
 file = "mods/fabric-api.pw.toml"
-hash = "2c83c02dfb420baea259ee424da8840c030a7befa271feaaadde5fe05977b1bb"
+hash = "7ec4db4aa2a8f92fa808979ce57bcb7b3787f196f6425dc27e9378fd56920759"
 metafile = true
 
 [[files]]
@@ -73,7 +73,7 @@ metafile = true
 
 [[files]]
 file = "mods/lithium.pw.toml"
-hash = "ab6daa26074776bb5fce3d9dad55a3202c66feb286c00ef786dabdae8e5f723a"
+hash = "5dd3a48b97db0419c703c64585b769c50a2bc5f5fc7b50f57b135a2caf206c66"
 metafile = true
 
 [[files]]
@@ -82,7 +82,7 @@ hash = "09db495c7031be8d5e34242cb188bf569469eba5a23fa70bf66a4c07d7f98a07"
 
 [[files]]
 file = "mods/moreculling.pw.toml"
-hash = "c2e99a4efdc1ba4602458e620212a4e7d2e4d1993b7cb479944761107b8a7e01"
+hash = "7281bacc2bcfe2c6bd5e96097c7058d109ba566fb513e616dd0fbc6e8f7ad1fb"
 metafile = true
 
 [[files]]
@@ -97,7 +97,7 @@ metafile = true
 
 [[files]]
 file = "mods/sodium.pw.toml"
-hash = "6648db5051be916f3db7541abb57ac6660a53fd3a3bf2fb71bf85eaf22a9afa7"
+hash = "80d7147df15240e7935b4424c8a6fb3ef3e3babfccf8c601711407d2a66741b7"
 metafile = true
 
 [[files]]

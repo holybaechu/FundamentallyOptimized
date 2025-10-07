@@ -1,1 +1,5 @@
-- First release
+- Updated Fabric API: fabric-api-0.133.4+1.21.8.jar -> fabric-api-0.134.0+1.21.8.jar
+- Updated Lithium: lithium-fabric-0.18.0+mc1.21.8.jar -> lithium-fabric-0.18.1+mc1.21.8.jar
+- Updated BadOptimizations: BadOptimizations-2.3.0-1.21.6-21.7.jar -> BadOptimizations-2.3.1-1.21.6-21.8.jar
+- Updated More Culling: moreculling-fabric-1.21.6-1.4.0-beta.1.jar -> moreculling-fabric-1.21.8-1.4.0-beta.2.jar
+- Updated Sodium: sodium-fabric-0.6.13+mc1.21.6.jar -> sodium-fabric-0.7.0+mc1.21.8.jar
